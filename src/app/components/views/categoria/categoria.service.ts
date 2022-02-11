@@ -25,6 +25,17 @@ export class CategoriaService {
     return this.http.post<Categoria>(url, categoria);
   }
 
+  findById(id:String):Observable<Categoria>{
+    const url = `${this.baseUrl}/categorias/${id}`
+    return this.http.get<Categoria>(url);
+  }
+
+  delete(id:String):Observable<void>{
+    const url = `${this.baseUrl}/categorias/${id}`;
+    return this.http.delete<void>(url);
+  }
+
+
 mensagem(str:string):void{
   this.snackbar.open(`${str}`, 'ok', {
     horizontalPosition: 'end',
