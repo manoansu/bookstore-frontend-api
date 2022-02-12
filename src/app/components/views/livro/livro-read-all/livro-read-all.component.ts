@@ -1,7 +1,8 @@
 import { LivroService } from './../livro.service';
 import { Component, OnInit } from '@angular/core';
 import { Livro } from '../livro-model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-livro-read-all',
@@ -16,7 +17,7 @@ export class LivroReadAllComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'titulo', 'livros', 'acoes'];
 
-  constructor(private service:LivroService, private activateRoute: ActivatedRoute) { }
+  constructor(private service:LivroService, private activateRoute: ActivatedRoute, private router:Router) { }
 
   ngOnInit(): void {
     this.id_cat = this.activateRoute.snapshot.paramMap.get('id_cat')!;
@@ -24,10 +25,14 @@ export class LivroReadAllComponent implements OnInit {
   }
 
   findAll():void{
-    this.service.findAll(this.id_cat).subscribe((response) =>{
+    this.service.findAllByCategoria(this.id_cat).subscribe((response) =>{
       this.livros = response;
       console.log(this.livros);
     })
+  }
+
+  navegarParaCriarLivro():void{
+    this.router.navigate([`categorias/${this.id_cat}/livros/create`]);
   }
 
 }

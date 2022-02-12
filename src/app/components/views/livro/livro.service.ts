@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Livro } from './livro-model';
 import { environment } from './../../../../environments/environment';
 import { Observable } from 'rxjs';
@@ -11,10 +12,33 @@ export class LivroService {
 
   baseUrl: String = environment.baseUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private snackbar:MatSnackBar) { }
 
-  findAll(id_cat:String):Observable<Livro[]>{
+  findAllByCategoria(id_cat:String):Observable<Livro[]>{
     const url = `${this.baseUrl}/livros?categoria=${id_cat}`;
     return this.http.get<Livro[]>(url); 
+  }
+
+  findById(id:String):Observable<Livro>{
+    const url = `${this.baseUrl}/livros/${id}`;
+    return this.http.get<Livro>(url);
+  }
+
+  update(livro:Livro):Observable<Livro>{
+    const url = `${this.baseUrl}/livros/${livro.id}`;
+    return this.http.put<Livro>(url, livro);
+  }
+
+  create(livro:Livro, id_cat:String):Observable<Livro>{
+    const url = `${this.baseUrl}/livros?categoria=${id_cat}`;
+    return this.http.post<Livro>(url,livro);
+  }
+
+  mensagem(str:string):void{
+    this.snackbar.open(`${str}`, 'ok', {
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+      duration:3000
+    })
   }
 }
