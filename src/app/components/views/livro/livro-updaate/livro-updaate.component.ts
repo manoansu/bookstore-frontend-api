@@ -12,7 +12,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class LivroUpdaateComponent implements OnInit {
 
   titulo = new FormControl("", [Validators.minLength(3)]);
-  nome_autor = new FormControl("", [Validators.minLength(3)]);
+  autor = new FormControl("", [Validators.minLength(3)]);
   texto = new FormControl("", [Validators.minLength(10)]);
 
   id_cat:String = '';
@@ -20,7 +20,7 @@ export class LivroUpdaateComponent implements OnInit {
   livro: Livro ={
     id: '',
     titulo: '',
-    nome_autor:'',
+    autor:'',
     texto: ''
   }
 
@@ -56,8 +56,8 @@ export class LivroUpdaateComponent implements OnInit {
     if(this.titulo.invalid){
       return "O campo TITULO de conter entre 3 e 100 caracteres";
     }
-     if(this.nome_autor.invalid){
-      return "O campo NOME_AUTOR de conter entre 3 e 100 caracteres";
+     if(this.autor.invalid){
+      return "O campo NOME AUTOR de conter entre 3 e 100 caracteres";
     }
      if(this.texto.invalid){
       return "O campo TEXTO de conter entre 10 e 100 caracteres";

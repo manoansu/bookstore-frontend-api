@@ -5,12 +5,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-livro-delete',
-  templateUrl: './livro-delete.component.html',
-  styleUrls: ['./livro-delete.component.css']
+  selector: 'app-livro-read',
+  templateUrl: './livro-read.component.html',
+  styleUrls: ['./livro-read.component.css']
 })
-export class LivroDeleteComponent implements OnInit {
- 
+export class LivroReadComponent implements OnInit {
+
   id_cat:String = '';
 
   livro: Livro ={
@@ -31,16 +31,6 @@ export class LivroDeleteComponent implements OnInit {
   findBiId(): void {
     this.service.findById(this.livro.id!).subscribe((response) => {
       this.livro = response;
-    })
-  }
-
-  delete():void{
-    this.service.delete(this.livro.id!).subscribe(() => {
-      this.router.navigate([`categorias/${this.id_cat}/livros`]);
-      this.service.mensagem("Livro deletado com sucesso!");
-    }, err => {
-      this.router.navigate([`categorias/${this.id_cat}/livros`]);
-      this.service.mensagem("Falha ao deletar livro! Tente mais tarde..");
     })
   }
 
